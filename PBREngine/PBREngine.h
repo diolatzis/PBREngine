@@ -23,8 +23,8 @@ class PBREngine
 {
 public:
 
-	const unsigned int WINDOW_WIDTH = 600;
-	const unsigned int WINDOW_HEIGHT = 400;
+	const unsigned int WINDOW_WIDTH = 1200;
+	const unsigned int WINDOW_HEIGHT = 800;
 	const std::string WINDOW_NAME = "PBREngine";
 
 	GLFWwindow *p_window;

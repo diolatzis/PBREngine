@@ -24,14 +24,15 @@ public:
 
 	int frame = 0;
 		
-	GLuint shaderProgram;
-	GLuint vao;
-	GLuint vbos[3];
-	int pointsNum;
-	glm::mat4 modelMatrix;
+	GLuint shaderProgram_;
+	GLuint vao_;
+	GLuint vbos_[3];
+	int points_;
+	glm::mat4 model_;
 
 	void render();
-	
+
+	void updateUniformBuffers(Camera camera, GLint viewport[4]);	
 };
 
 

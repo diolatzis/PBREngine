@@ -30,19 +30,19 @@ PhysicsManager & PhysicsManager::get()
 
 void PhysicsManager::addGlobalForce(Force f)
 {
-	m_globalForces.push_back(f);
+	globalForces_.push_back(f);
 }
 
 void PhysicsManager::addPhysicsObj(PhysicsObject * physicsObj)
 {
-	m_physicsObjs.push_back(physicsObj);
+	physicsObjs_.push_back(physicsObj);
 }
 
 void PhysicsManager::simulate(const float timestep)
 {
-	for (int i = 0; i < m_physicsObjs.size(); i++)
+	for (int i = 0; i < physicsObjs_.size(); i++)
 	{
-		m_physicsObjs.at(i)->simulate(m_globalForces, timestep);	//Timestep the objects
+		physicsObjs_.at(i)->simulate(globalForces_, timestep);	//Timestep the objects
 	}
 }
 
@@ -50,13 +50,13 @@ void PhysicsManager::handleCollisions(const float timestep)
 {
 	m_timestep = timestep;
 
-	for (int i = 0; i < m_physicsObjs.size(); i++)
+	for (int i = 0; i < physicsObjs_.size(); i++)
 	{
-		PhysicsObject * obj1 = m_physicsObjs.at(i);
+		PhysicsObject * obj1 = physicsObjs_.at(i);
 
-		for (int j = i+1; j < m_physicsObjs.size(); j++)	//For each object check collisions with every other
+		for (int j = i+1; j < physicsObjs_.size(); j++)	//For each object check collisions with every other
 		{
-			PhysicsObject * obj2 = m_physicsObjs.at(j);
+			PhysicsObject * obj2 = physicsObjs_.at(j);
 
 			if (obj1->getShape() == PhysicsObject::SHAPE_POINT)		//Object 1 -> sphere
 			{
@@ -89,30 +89,30 @@ void PhysicsManager::handleCollisions(const float timestep)
 
 void PhysicsManager::clear()
 {
-	m_physicsObjs.clear();
+	physicsObjs_.clear();
 }
 
 void PhysicsManager::reset()
 {
-	for (int i = 0; i < m_physicsObjs.size(); i++)
+	for (int i = 0; i < physicsObjs_.size(); i++)
 	{
-		m_physicsObjs.at(i)->reset();
+		physicsObjs_.at(i)->reset();
 	}
 }
 
 void PhysicsManager::updatePos(const float timestep)
 {
-	for (int i = 0; i < m_physicsObjs.size(); i++)
+	for (int i = 0; i < physicsObjs_.size(); i++)
 	{
-		m_physicsObjs.at(i)->updatePos(timestep);
+		physicsObjs_.at(i)->updatePos(timestep);
 	}
 }
 
 void PhysicsManager::clearForces()
 {
-	for (int i = 0; i < m_physicsObjs.size(); i++)
+	for (int i = 0; i < physicsObjs_.size(); i++)
 	{
-		m_physicsObjs.at(i)->m_forces.clear();
+		physicsObjs_.at(i)->forces_.clear();
 	}
 }
 

@@ -3,37 +3,34 @@
 
 #include <vector>
 #include <glm.hpp>
+#include "Types.h"
 
 class PhysicsObject		//Abstract class of physics objects
 {
 protected:
 
-	typedef glm::vec3 Force;
-
-	
-
 	//Physics variables
-	glm::vec3 m_vel, m_accel;
-	glm::vec3 m_rotVel;
-	glm::vec3 m_iniVel;
+	glm::vec3 vel_, accel_;
+	glm::vec3 rotVel_;
+	glm::vec3 iniVel_;
 
-	float m_mass;
-	float m_restitution;
+	float mass_;
+	float restitution_;
 
 	//Shape of the collision pollygon
-	int m_shape;
+	int shape_;
 
 	//Forces switches
-	bool m_enableWind = false;
-	bool m_enableGravity = true;
+	bool enableWind_ = false;
+	bool enableGravity_ = true;
 
 public:
 
 	//Forces applied to this object
-	std::vector<Force> m_forces;
+	std::vector<Force> forces_;
 
 	//If the object is immovable
-	bool isFixed = false;
+	bool isFixed_ = false;
 
 	//Shapes supproted
 	static const int SHAPE_SPHERE = 0;
@@ -52,15 +49,15 @@ public:
 
 	//Add a force to this object
 	void addForce(Force f);
-	void setWind(bool enableWind) { m_enableWind = enableWind; }
-	void setGravity(bool enableGravity) { m_enableGravity = enableGravity; }
+	void setWind(bool enableWind) { enableWind_ = enableWind; }
+	void setGravity(bool enableGravity) { enableGravity_ = enableGravity; }
 
 	//Getters
-	int getShape() { return m_shape; }
-	float getRestitution() { return m_restitution; }
-	glm::vec3 * getVel() { return &m_vel; }
-	float getMass() { return m_mass; }
-	glm::vec3 * getRotVel() { return &m_rotVel; }
+	int getShape() { return shape_; }
+	float getRestitution() { return restitution_; }
+	glm::vec3 * getVel() { return &vel_; }
+	float getMass() { return mass_; }
+	glm::vec3 * getRotVel() { return &rotVel_; }
 };
 
 #endif

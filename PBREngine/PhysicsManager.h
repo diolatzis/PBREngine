@@ -9,8 +9,8 @@
 class PhysicsManager
 {
 
-	std::vector<Force> m_globalForces;			//Global forces vector
-	std::vector<PhysicsObject*> m_physicsObjs;	//Physics objects vector
+	std::vector<Force> globalForces_;			//Global forces vector
+	std::vector<PhysicsObject*> physicsObjs_;	//Physics objects vector
 
 	float m_timestep;	//Simulation timestep
 

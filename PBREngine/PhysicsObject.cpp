@@ -2,8 +2,8 @@
 
 PhysicsObject::PhysicsObject()
 {
-	m_vel = glm::vec3(0, 0, 0);
-	m_accel = glm::vec3(0, 0, 0);
+	vel_ = glm::vec3(0, 0, 0);
+	accel_ = glm::vec3(0, 0, 0);
 }
 
 PhysicsObject::~PhysicsObject()
@@ -12,5 +12,5 @@ PhysicsObject::~PhysicsObject()
 
 void PhysicsObject::addForce(Force f)
 {
-	m_forces.push_back(f);
+	forces_.push_back(f);
 }

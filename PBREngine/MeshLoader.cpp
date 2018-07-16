@@ -146,31 +146,31 @@ bool MeshLoader::loadMesh(const char *meshPath, const char *texturePath, int tex
 		{
 			line.erase(0, 2);
 			
-			face.v0 = stof(line.substr(0, line.find('/'))) - 1;
+			face.v0_ = stof(line.substr(0, line.find('/'))) - 1;
 			line.erase(0, line.find('/') + 1);
 
-			face.vt0 = stof(line.substr(0, line.find('/'))) - 1;
+			face.vt0_ = stof(line.substr(0, line.find('/'))) - 1;
 			line.erase(0, line.find('/') + 1);
 
-			face.vn0 = stof(line.substr(0, line.find(' '))) - 1;
+			face.vn0_ = stof(line.substr(0, line.find(' '))) - 1;
 			line.erase(0, line.find(' ') + 1);
 
-			face.v1 = stof(line.substr(0, line.find('/'))) - 1;
+			face.v1_ = stof(line.substr(0, line.find('/'))) - 1;
 			line.erase(0, line.find('/') + 1);
 
-			face.vt1 = stof(line.substr(0, line.find('/'))) - 1;
+			face.vt1_ = stof(line.substr(0, line.find('/'))) - 1;
 			line.erase(0, line.find('/') + 1);
 
-			face.vn1 = stof(line.substr(0, line.find(' '))) - 1;
+			face.vn1_ = stof(line.substr(0, line.find(' '))) - 1;
 			line.erase(0, line.find(' ') + 1);
 
-			face.v2 = stof(line.substr(0, line.find('/'))) - 1;
+			face.v2_ = stof(line.substr(0, line.find('/'))) - 1;
 			line.erase(0, line.find('/') + 1);
 
-			face.vt2 = stof(line.substr(0, line.find('/'))) - 1;
+			face.vt2_ = stof(line.substr(0, line.find('/'))) - 1;
 			line.erase(0, line.find('/') + 1);
 
-			face.vn2 = stof(line.substr(0, line.find(' '))) - 1;
+			face.vn2_ = stof(line.substr(0, line.find(' '))) - 1;
 			line.erase(0, line.find(' ') + 1);
 
 			faces.push_back(face);
@@ -183,47 +183,43 @@ bool MeshLoader::loadMesh(const char *meshPath, const char *texturePath, int tex
 
 	for (int i = 0; i < faces.size(); i++)
 	{
-		normals[faces[i].v0] += faceNormals[faces[i].vn0];
+		normals[faces[i].v0_] += faceNormals[faces[i].vn0_];
 
-		normals[faces[i].v1] += faceNormals[faces[i].vn1];
+		normals[faces[i].v1_] += faceNormals[faces[i].vn1_];
 
-		normals[faces[i].v2] += faceNormals[faces[i].vn2];
+		normals[faces[i].v2_] += faceNormals[faces[i].vn2_];
 
-		float u = us[faces[i].vt0];
-		float v = vs[faces[i].vt0];
+		float u = us[faces[i].vt0_];
+		float v = vs[faces[i].vt0_];
 
-		colours[faces[i].v0].x = image[4 * textureWidth * (int)v + 4 *(int)u];
-		colours[faces[i].v0].y = image[4 * textureWidth * (int)v + 4 *(int)u + 1];
-		colours[faces[i].v0].z = image[4 * textureWidth * (int)v + 4 *(int)u + 2];
-
-
-		colours[faces[i].v0] /= 255.0f;
-
-		u = us[faces[i].vt1];
-		v = vs[faces[i].vt1];
-
-		colours[faces[i].v1].x = image[4 * textureWidth * (int)v + 4 * (int)u];
-		colours[faces[i].v1].y = image[4 * textureWidth * (int)v + 4 * (int)u + 1];
-		colours[faces[i].v1].z = image[4 * textureWidth * (int)v + 4 * (int)u + 2];
+		colours[faces[i].v0_].x = image[4 * textureWidth * (int)v + 4 *(int)u];
+		colours[faces[i].v0_].y = image[4 * textureWidth * (int)v + 4 *(int)u + 1];
+		colours[faces[i].v0_].z = image[4 * textureWidth * (int)v + 4 *(int)u + 2];
 
 
+		colours[faces[i].v0_] /= 255.0f;
 
-		colours[faces[i].v1] /= 255.0f;
+		u = us[faces[i].vt1_];
+		v = vs[faces[i].vt1_];
 
-		u = us[faces[i].vt2];
-		v = vs[faces[i].vt2];
-
-		colours[faces[i].v2].x = image[4 * textureWidth * (int)v + 4 * (int)u];
-		colours[faces[i].v2].y = image[4 * textureWidth * (int)v + 4 * (int)u + 1];
-		colours[faces[i].v2].z = image[4 * textureWidth * (int)v + 4 * (int)u + 2];
+		colours[faces[i].v1_].x = image[4 * textureWidth * (int)v + 4 * (int)u];
+		colours[faces[i].v1_].y = image[4 * textureWidth * (int)v + 4 * (int)u + 1];
+		colours[faces[i].v1_].z = image[4 * textureWidth * (int)v + 4 * (int)u + 2];
 
 
 
-		colours[faces[i].v2] /= 255.0f;
+		colours[faces[i].v1_] /= 255.0f;
+
+		u = us[faces[i].vt2_];
+		v = vs[faces[i].vt2_];
+
+		colours[faces[i].v2_].x = image[4 * textureWidth * (int)v + 4 * (int)u];
+		colours[faces[i].v2_].y = image[4 * textureWidth * (int)v + 4 * (int)u + 1];
+		colours[faces[i].v2_].z = image[4 * textureWidth * (int)v + 4 * (int)u + 2];
 
 
 
-
+		colours[faces[i].v2_] /= 255.0f;
 	}
 
 	//Normalize
@@ -239,31 +235,31 @@ bool MeshLoader::loadMesh(const char *meshPath, const char *texturePath, int tex
 
 void MeshLoader::buildMesh(const std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<Colour>& colours, Mesh & mesh)
 {
-	mesh.pointsNum = vertices.size();
+	mesh.points_ = vertices.size();
 
 	//Create VAO
-	glGenVertexArrays(1, &mesh.vao);
+	glGenVertexArrays(1, &mesh.vao_);
 
 	//Enable VAO
-	glBindVertexArray(mesh.vao);
+	glBindVertexArray(mesh.vao_);
 
 	//Generate VBO buffers
-	glGenBuffers(Mesh::VBOS_NUM, mesh.vbos);
+	glGenBuffers(Mesh::VBOS_NUM, mesh.vbos_);
 
 	//Positions
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbos[Mesh::VBID_POS]);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbos_[Mesh::VBID_POS]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0])*vertices.size(), vertices.data(), GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	//Normals
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbos[Mesh::VBID_NORMAL]);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbos_[Mesh::VBID_NORMAL]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(normals[0])*normals.size(), normals.data(), GL_STATIC_DRAW);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	//Colours
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbos[Mesh::VBID_COLOUR]);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbos_[Mesh::VBID_COLOUR]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(colours[0])*colours.size(), colours.data(), GL_STATIC_DRAW);
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);

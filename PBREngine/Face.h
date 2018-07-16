@@ -7,9 +7,9 @@ public:
 	Face();
 	~Face();
 
-	int v0, v1, v2;
-	int vt0, vt1, vt2;
-	int vn0, vn1, vn2;
+	int v0_, v1_, v2_;
+	int vt0_, vt1_, vt2_;
+	int vn0_, vn1_, vn2_;
 };
 
 #endif

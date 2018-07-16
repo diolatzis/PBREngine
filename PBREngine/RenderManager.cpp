@@ -19,6 +19,10 @@ RenderManager & RenderManager::get()
 	return *instance;
 }
 
+void RenderManager::updateUniformBuffers()
+{
+}
+
 void RenderManager::startUp()
 {
 	//Any necessary initialization goes here
@@ -28,10 +32,13 @@ void RenderManager::shutDown()
 {
 }
 
-void RenderManager::render()
+void RenderManager::render(Camera camera, GLint viewport[4])
 {
+
+
 	for (int i = 0; i < m_renderableObjs.size(); i++)
 	{
+		m_renderableObjs.at(i)->updateUniformBuffers(camera, viewport);
 		m_renderableObjs.at(i)->render();
 	}
 }

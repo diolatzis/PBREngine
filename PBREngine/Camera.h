@@ -9,10 +9,10 @@ class Camera
 public:
 
 	//Camera variables
-	float fov = 40.0, nearZ = 0.1, farZ = 1000, theta = 0, phi = 135, radius = 25;
-	glm::vec3 pos = { radius*cosf(phi*glm::pi<float>() / 180.0f)*sinf(theta*glm::pi<float>() / 180.0f) ,radius*sinf(phi*glm::pi<float>() / 180.0f) ,radius*cosf(phi*glm::pi<float>() / 180.0f)*cosf(theta*glm::pi<float>() / 180.0f) };	//Using spherical coords
-	glm::vec3 targetPos = { 0, 5, 2 };
-	glm::vec3 up = { 0,1,0 };
+	float fov_ = 40.0, nearZ_ = 0.1, farZ_ = 1000, theta_ = 0, phi_ = 135, radius_ = 25;
+	glm::vec3 pos_ = { radius_*cosf(phi_*glm::pi<float>() / 180.0f)*sinf(theta_*glm::pi<float>() / 180.0f) ,radius_*sinf(phi_*glm::pi<float>() / 180.0f) ,radius_*cosf(phi_*glm::pi<float>() / 180.0f)*cosf(theta_*glm::pi<float>() / 180.0f) };	//Using spherical coords
+	glm::vec3 targetPos_ = { 0, 5, 2 };
+	glm::vec3 up_ = { 0,1,0 };
 
 	Camera();
 	~Camera();
