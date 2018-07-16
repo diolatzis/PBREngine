@@ -12,6 +12,9 @@
 class ShaderLoader
 {
 public:
+
+	static const int RENDER_TYPE_CIRCLE_SPLAT = 0, RENDER_TYPE_SQUARE_SPLAT = 1;
+
 	ShaderLoader();
 	~ShaderLoader();
 
@@ -25,6 +28,8 @@ public:
 	GLuint loadShader(const char *shaderPath, GLenum shaderType);
 
 	void addShader(GLuint program, const char *shaderPath, GLenum shaderType);
+
+	void setShaders(GLuint program, const int renderType);
 
 };
 
