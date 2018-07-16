@@ -27,21 +27,21 @@ public:
 	const unsigned int WINDOW_HEIGHT = 800;
 	const std::string WINDOW_NAME = "PBREngine";
 
-	GLFWwindow *p_window;
+	GLFWwindow *window_;
 
 	//FPS handling
-	float fps = 0;
-	float frames = 0;
-	int fpsTarget = 1000;
-	double skipTicks = 1.0f / fpsTarget;
-	double nextGameTick = glfwGetTime();
-	double startTime = glfwGetTime();
+	float fps_ = 0;
+	float frames_ = 0;
+	int fpsTarget_ = 1000;
+	double skipTicks_ = 1.0f / fpsTarget_;
+	double nextGameTick_ = glfwGetTime();
+	double startTime_ = glfwGetTime();
 	
 	// Lighting information
 	GLfloat ambient[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	GLfloat lightPos[4] = { 0.0f, 10.0f, 5.0f, 0.0f };
 
-	Camera camera;
+	Camera camera_;
 
 	PBREngine();
 	~PBREngine();
@@ -60,7 +60,7 @@ public:
 	void update();
 	void render();
 
-	Mesh mesh;
+	Mesh mesh_;
 };
 
 #endif
