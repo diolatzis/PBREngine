@@ -14,7 +14,7 @@ Agenda:
     - From .obj data a point cloud representation is built with position, colour, and normal information for each point
     - The normals of each point is computed as an average of the normals defined in all faces that include said point
     - Built basic point renderer
-      - <img align="center" width="200" height="300" src="https://user-images.githubusercontent.com/19236056/42325376-c1f42aaa-806e-11e8-8cfc-675ff5b84ae8.PNG">  <img align="center" width="400" height="300" src="https://user-images.githubusercontent.com/19236056/43147301-637e742e-8f6b-11e8-86f9-fe559f85abc6.PNG">  
+      - <img align="center" width="200" height="300" src="https://user-images.githubusercontent.com/19236056/42325376-c1f42aaa-806e-11e8-8cfc-675ff5b84ae8.PNG">  <img align="center" width="300" height="300" src="https://user-images.githubusercontent.com/19236056/43147301-637e742e-8f6b-11e8-86f9-fe559f85abc6.PNG">  
       
         
 ### Week 5 (July 2-6)
