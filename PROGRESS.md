@@ -47,4 +47,6 @@ Agenda:
   
 Agenda:
    - Basic game development
+      -Implemented first person camera movement
+      -
    - Arrange progress meeting
