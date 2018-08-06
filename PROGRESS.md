@@ -48,5 +48,5 @@ Agenda:
 Agenda:
    - Basic game development
       -Implemented first person camera movement
-      -
+      -Currently developing support for triangular meshes
    - Arrange progress meeting
