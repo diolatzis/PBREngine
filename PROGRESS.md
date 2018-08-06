@@ -26,6 +26,7 @@ Agenda:
     - Implemented bilinear interpolation when choosing color values for points.
     ![capture](https://user-images.githubusercontent.com/19236056/42422454-e1c2f6cc-82ee-11e8-8e64-ee5ed5592cd0.PNG)    
   - [ ] Use splatting to approximate surfaces
+   
     
     
 ### Week 6 (July 9-13)
@@ -40,3 +41,10 @@ Agenda:
       As expected there are visual artifacts
     
     - Currently working on shaders to implement elliptical splatting
+    
+    
+### Week 9 (July 30-August 3)
+  
+Agenda:
+   - Basic game development
+   - Arrange progress meeting
