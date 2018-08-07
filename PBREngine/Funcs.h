@@ -1,4 +1,9 @@
-#pragma once
+#ifndef FUNCS_H
+#define FUNCS_H
+
+#include <string>
+#include <vector>
+
 class Funcs
 {
 public:
@@ -18,3 +23,4 @@ private:
 	~Funcs();
 };
 
+#endif

@@ -65,18 +65,10 @@ void ShaderLoader::addShader(GLuint program, const char * shaderPath, GLenum sha
 	glDeleteShader(shader);
 }
 
-void ShaderLoader::setShaders(GLuint program, const int renderType)
+void ShaderLoader::setShader(GLuint & program, const std::string & shaderPath)
 {
-	switch (renderType)
-	{
-	case RENDER_TYPE_SQUARE_SPLAT:
-		ShaderLoader::get().addShader(program, "../shaders/square_splatting.vert", GL_VERTEX_SHADER);
-		ShaderLoader::get().addShader(program, "../shaders/square_splatting.frag", GL_FRAGMENT_SHADER);
-		break;
-	case RENDER_TYPE_CIRCLE_SPLAT:
-		ShaderLoader::get().addShader(program, "../shaders/circle_splatting.vert", GL_VERTEX_SHADER);
-		ShaderLoader::get().addShader(program, "../shaders/circle_splatting.frag", GL_FRAGMENT_SHADER);
-		break;
+	program = glCreateProgram();
 
-	}
+	ShaderLoader::get().addShader(program, (shaderPath + ".vert").c_str(), GL_VERTEX_SHADER);
+	ShaderLoader::get().addShader(program, (shaderPath + ".frag").c_str(), GL_FRAGMENT_SHADER);
 }

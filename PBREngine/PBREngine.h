@@ -16,15 +16,17 @@
 #include "ShaderLoader.h"
 #include "MeshLoader.h"
 #include "RenderManager.h"
-#include "Mesh.h"
+#include "PointMesh.h"
 #include "Camera.h"
+#include "Light.h"
+#include "GameObject.h"
 
 class PBREngine
 {
 public:
 
-	const unsigned int WINDOW_WIDTH = 1200;
-	const unsigned int WINDOW_HEIGHT = 800;
+	const unsigned int WINDOW_WIDTH = 1500;
+	const unsigned int WINDOW_HEIGHT = 1000;
 	const std::string WINDOW_NAME = "PBREngine";
 
 	GLFWwindow *window_;
@@ -37,9 +39,9 @@ public:
 	double nextGameTick_ = glfwGetTime();
 	double startTime_ = glfwGetTime();
 	
-	// Lighting information
-	GLfloat ambient[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
-	GLfloat lightPos[4] = { 0.0f, 10.0f, 5.0f, 0.0f };
+	std::vector<GameObject> gameObjects_;
+
+	Light light_;
 
 	Camera camera_;
 
@@ -51,16 +53,19 @@ public:
 
 	bool initialize();
 	void initializeGL();
+	void initializeScene();
 
 	static void handleError(int error, const char *description);
 	static void resize(GLFWwindow *window, int width, int height);
+	static void handleKeyPress(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 	int run();
 	int mainLoop();
+	void handleInput(int key, int action);
 	void update();
 	void render();
 
-	Mesh mesh_;
+	PointMesh mesh_;
 };
 
 #endif

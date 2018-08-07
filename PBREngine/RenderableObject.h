@@ -2,6 +2,7 @@
 #define RENDERABLE_OBJECT
 
 #include <GL\glew.h>
+#include <glm.hpp>
 #include <string>
 #include "Camera.h"
 
@@ -12,12 +13,15 @@ public:
 	RenderableObject();
 
 	~RenderableObject();
-	
-	//Update the uniform buffers for the shaders
-	virtual void updateUniformBuffers(Camera camera, GLint viewport[4]) = 0;
 
 	//Render the object
 	virtual void render() = 0;
+
+	virtual int getMeshType() = 0;
+
+	virtual GLuint* getTexture() = 0;
+
+	glm::mat4 modelMatrix;
 };
 
 #endif
