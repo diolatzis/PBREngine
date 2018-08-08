@@ -114,11 +114,14 @@ bool MeshLoader::loadMeshAsPoints(const char *meshPath, const char *texturePath,
 			u = abs(stof(line.substr(0, line.find(seperator))))*textureWidth;
 
 			line.erase(0, line.find(' ') + 1);
-			v = abs(textureHeight - stof(line.substr(0, line.find(seperator)))*textureHeight);
+			v = abs(textureHeight - (stof(line.substr(0, line.find(seperator)))*textureHeight));
 
 			//If texture coordinates are bigger than 1
-			if (u > textureWidth-5) u = textureWidth-5;
-			if (v > textureHeight-5) v = textureHeight-5;
+			if (u > textureWidth-2)
+			{
+				u = textureWidth-2;
+			}
+			if (v > textureHeight-2) v = textureHeight-2;
 
 			us.push_back(u);
 			vs.push_back(v);
@@ -204,12 +207,13 @@ bool MeshLoader::loadMeshAsPoints(const char *meshPath, const char *texturePath,
 		}
 	}
 
-	//Add the normals for each vertex from the faces
+	//Normals and colours of each vertex
 	normals.resize(vertices.size());
 	colours.resize(vertices.size());
 
 	for (int i = 0; i < faces.size(); i++)
 	{
+		//If mesh doesn't have normals per face just set the normal
 		if (faces[i].vn0_ == -1)
 		{
 			normals[faces[i].v0_] = faceNormals[faces[i].v0_];
@@ -225,8 +229,6 @@ bool MeshLoader::loadMeshAsPoints(const char *meshPath, const char *texturePath,
 
 			normals[faces[i].v2_] += faceNormals[faces[i].vn2_];
 		}
-
-
 
 		//Compute distances between each vertex
 		float distV0V1 = glm::distance(vertices[faces[i].v0_], vertices[faces[i].v1_]);
@@ -251,10 +253,6 @@ bool MeshLoader::loadMeshAsPoints(const char *meshPath, const char *texturePath,
 
 		if (distV1V2 > radii[faces[i].v2_])
 			radii[faces[i].v2_] = distV1V2;
-
-
-		if (glm::distance(vertices[faces[i].v0_], vertices[faces[i].v1_]) > radii[faces[i].v0_])
-			radii[faces[i].v0_] = glm::distance(vertices[faces[i].v0_], vertices[faces[i].v1_]);
 
 
 		//Use bilinear interpolation to compute the color from the texture
@@ -392,6 +390,7 @@ bool MeshLoader::loadMeshAsTriang(const char * meshPath, const char * texturePat
 	//Load texture
 	unsigned error = lodepng::decode(image, width, height, texturePath);
 
+	//Create image data in format suitable for the vbo later
 	for (int i = 0; i < image.size(); i += 4)
 	{
 		imageData.push_back(glm::vec4(image[i]/255.0f, image[i + 1] / 255.0f, image[i + 2] / 255.0f, image[i + 3] / 255.0f));
@@ -445,10 +444,6 @@ bool MeshLoader::loadMeshAsTriang(const char * meshPath, const char * texturePat
 
 			line.erase(0, line.find(' ') + 1);
 			v = abs(textureHeight - stof(line.substr(0, line.find(seperator)))*textureHeight);
-
-			//If texture coordinates are bigger than 1
-			if (u > textureWidth - 5) u = textureWidth - 5;
-			if (v > textureHeight - 5) v = textureHeight - 5;
 
 			faceUVs.push_back(glm::vec2(u, v));
 		}
@@ -533,22 +528,23 @@ bool MeshLoader::loadMeshAsTriang(const char * meshPath, const char * texturePat
 		}
 	}
 
-	//Add the normals for each vertex from the faces
+	//Normals and uvs of each vertex
 	normals.resize(vertices.size());
 	uvs.resize(vertices.size());
-	
 
 	for (int i = 0; i < faces.size(); i++)
 	{
+		//Build the indices array
 		indices.push_back(faces[i].v0_);
 		indices.push_back(faces[i].v1_);
 		indices.push_back(faces[i].v2_);
 
+		//Build the uvs array
 		uvs[faces[i].v0_] = faceUVs[faces[i].vt0_];
 		uvs[faces[i].v1_] = faceUVs[faces[i].vt1_];
 		uvs[faces[i].v2_] = faceUVs[faces[i].vt2_];
 
-
+		//If mesh doesn't have normals per face just set the normal
 		if (faces[i].vn0_ == -1)
 		{
 			normals[faces[i].v0_] = faceNormals[faces[i].v0_];

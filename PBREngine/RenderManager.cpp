@@ -71,8 +71,6 @@ void RenderManager::updateUniformBuffers(GLuint &program,const Camera &camera, G
 	glUniform3f(diffuseLoc, light.diffuse_[0], light.diffuse_[1], light.diffuse_[2]);
 	glUniform3f(specularLoc, light.specular_[0], light.specular_[1], light.specular_[2]);
 	glUniform1f(specularPowerLoc, light.specularPower_);
-
-
 }
 
 void RenderManager::updateModelMatrix(GLuint &program, RenderableObject *obj)
@@ -161,7 +159,6 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 	ShaderLoader::get().setShader(circleSplatProgram_, "../shaders/circle_splatting");
 	ShaderLoader::get().setShader(shadingProgram_, "../shaders/shading");
 	ShaderLoader::get().setShader(shadowProgram_, "../shaders/shadow");
-	ShaderLoader::get().setShader(visibilityTriangProgram_, "../shaders/visibility_triang");
 	ShaderLoader::get().setShader(attributeTriangProgram_, "../shaders/attribute_triang");
 
 }
@@ -259,12 +256,12 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_1D, gaussTex_);
-
 		
-		glActiveTexture(GL_TEXTURE2);
-		if(obj->getTexture()) glBindTexture(GL_TEXTURE_2D, *obj->getTexture());
-		
-		
+		if (obj->getTexture())
+		{
+			glActiveTexture(GL_TEXTURE2);
+			glBindTexture(GL_TEXTURE_2D, *obj->getTexture());
+		}
 
 		obj->render();
 	}
@@ -295,13 +292,13 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, colorTex_);
 
-		glActiveTexture(GL_TEXTURE0 + 1);
+		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, normalTex_);
 
-		glActiveTexture(GL_TEXTURE0 + 2);
+		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_2D, depthMap_);
 
-		glActiveTexture(GL_TEXTURE0 + 3);
+		glActiveTexture(GL_TEXTURE3);
 		glBindTexture(GL_TEXTURE_2D, shadowMap_);
 
 		obj->render();

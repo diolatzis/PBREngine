@@ -31,7 +31,7 @@ public:
 	GLuint normalTex_;
 	GLuint gaussTex_;
 	GLuint visibilityProgram_, renderProgram_, squareSplatProgram_, circleSplatProgram_, depthProgram_, shadingProgram_, shadowProgram_;
-	GLuint visibilityTriangProgram_, attributeTriangProgram_;
+	GLuint attributeTriangProgram_;
 
 
 	RenderManager();
