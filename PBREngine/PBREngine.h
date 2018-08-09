@@ -2,10 +2,12 @@
 #define PBR_ENGINE_H
 
 #define GLEW_STATIC
+#define GLM_ENABLE_EXPERIMENTAL
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 #include <glm.hpp>
+#include <gtx\vector_angle.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\constants.hpp>
 #include <string>
@@ -41,6 +43,8 @@ public:
 	
 	std::vector<GameObject> gameObjects_;
 
+	double lastX_ = WINDOW_WIDTH/2.0, lastY_ = WINDOW_HEIGHT/2.0;
+
 	Light light_;
 
 	Camera camera_;
@@ -53,15 +57,20 @@ public:
 
 	bool initialize();
 	void initializeGL();
+	void addRenderableGameObject(glm::vec3 pos,int meshType, const char * meshPath, const char * texturePath, int textureWidth, int textureHeight);
+	void setLight(glm::vec3 pos, glm::vec3 targetPos, glm::vec4 ambient, glm::vec4 diffuse, glm::vec4 specular, float specularPower);
+	void setCamera(float fov, float nearZ, float farZ, glm::vec3 pos, glm::vec3 targetPos, glm::vec3 up);
 	void initializeScene();
 
 	static void handleError(int error, const char *description);
 	static void resize(GLFWwindow *window, int width, int height);
 	static void handleKeyPress(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void handleMouseMovement(GLFWwindow* window, double xpos, double ypos);
 
 	int run();
 	int mainLoop();
 	void handleInput(int key, int action);
+	void handleMouseInput(double x, double y);
 	void update();
 	void render();
 

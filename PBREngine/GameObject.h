@@ -15,8 +15,10 @@ class GameObject : public RenderableObject
 public:
 
 	glm::mat4 model_;
+	glm::vec3 pos_;
 
 	GameObject();
+	GameObject(glm::vec3 pos);
 	~GameObject();
 
 	void setPointMesh(const char *meshPath, const char *texturePath, int textureWidth, int textureHeight);

@@ -443,7 +443,7 @@ bool MeshLoader::loadMeshAsTriang(const char * meshPath, const char * texturePat
 			u = abs(stof(line.substr(0, line.find(seperator))))*textureWidth;
 
 			line.erase(0, line.find(' ') + 1);
-			v = abs(textureHeight - stof(line.substr(0, line.find(seperator)))*textureHeight);
+			v = abs(stof(line.substr(0, line.find(seperator)))*textureHeight);
 
 			faceUVs.push_back(glm::vec2(u, v));
 		}

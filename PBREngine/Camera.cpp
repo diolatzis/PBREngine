@@ -14,3 +14,8 @@ Camera::Camera(float fov, float nearZ, float farZ, glm::vec3 pos, glm::vec3 targ
 Camera::~Camera()
 {
 }
+
+glm::vec3 Camera::getTarget()
+{
+	return pos_ + targetPos_;
+}

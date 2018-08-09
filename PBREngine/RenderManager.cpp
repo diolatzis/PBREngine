@@ -25,12 +25,12 @@ RenderManager & RenderManager::get()
 	return *instance;
 }
 
-void RenderManager::updateUniformBuffers(GLuint &program,const Camera &camera, GLint viewport[4], const Light &light, const glm::mat4 &model)
+void RenderManager::updateUniformBuffers(GLuint &program, Camera &camera, GLint viewport[4], const Light &light, const glm::mat4 &model)
 {
 	//Build and update uniform matrices
 	glm::mat4 view, projection, invProj;
 
-	view = glm::lookAt(camera.pos_, camera.targetPos_, camera.up_);
+	view = glm::lookAt(camera.pos_, camera.getTarget(), camera.up_);
 	projection = glm::perspective(glm::radians(camera.fov_), (float)viewport[2] / (float)viewport[3], camera.nearZ_, camera.farZ_);
 
 	invProj = glm::inverse(projection);
@@ -71,13 +71,6 @@ void RenderManager::updateUniformBuffers(GLuint &program,const Camera &camera, G
 	glUniform3f(diffuseLoc, light.diffuse_[0], light.diffuse_[1], light.diffuse_[2]);
 	glUniform3f(specularLoc, light.specular_[0], light.specular_[1], light.specular_[2]);
 	glUniform1f(specularPowerLoc, light.specularPower_);
-}
-
-void RenderManager::updateModelMatrix(GLuint &program, RenderableObject *obj)
-{
-	GLint model_loc = glGetUniformLocation(program, "model");
-
-	//glUniformMatrix4fv(model_loc, 1, GL_FALSE, &obj->modelMatrix;
 }
 
 void RenderManager::startUp(const int windowWidth, const int windowHeight)
@@ -303,7 +296,8 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 
 		obj->render();
 
-		obj->modelMatrix = glm::rotate(obj->modelMatrix, 0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
+		//obj->modelMatrix = glm::rotate(obj->modelMatrix, 0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 	}
 
 	glBindTexture(GL_TEXTURE_2D, 0);

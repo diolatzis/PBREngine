@@ -16,11 +16,11 @@
 
 class RenderManager
 {
-	std::vector<RenderableObject *> m_renderableObjs;
+	std::vector<RenderableObject*> m_renderableObjs;
 
 public:
 
-	static const int RENDER_TYPE_CIRCLE_SPLAT = 0, RENDER_TYPE_SQUARE_SPLAT = 1, RENDER_TYPE_DEPTH = 2;
+	static const int RENDER_TYPE_CIRCLE_SPLAT = 0, RENDER_TYPE_SQUARE_SPLAT = 1;
 
 	GLuint visibilityFBO_;
 	GLuint depthMap_;
@@ -46,9 +46,7 @@ public:
 	//Get the singleton instance
 	static RenderManager& get();
 
-	void updateUniformBuffers(GLuint &program, const Camera &camera, GLint viewport[4], const Light &light, const glm::mat4 &model);
-
-	void updateModelMatrix(GLuint &program, RenderableObject *obj);
+	void updateUniformBuffers(GLuint &program, Camera &camera, GLint viewport[4], const Light &light, const glm::mat4 &model);
 
 	//Render the objects
 	void render(Camera camera, GLint viewport[4], const Light &light, const int renderType);

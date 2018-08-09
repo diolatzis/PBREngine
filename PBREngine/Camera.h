@@ -15,6 +15,8 @@ public:
 	Camera();
 	Camera(float fov, float nearZ, float farZ, glm::vec3 pos, glm::vec3 targetPos, glm::vec3 up);
 	~Camera();
+
+	glm::vec3 getTarget();
 };
 
 #endif
