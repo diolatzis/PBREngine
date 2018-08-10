@@ -3,22 +3,24 @@
 
 MeshLoader::MeshLoader()
 {
-	//DO NOTHING
+	//Do nothing
 }
 
 
 MeshLoader::~MeshLoader()
 {
-	//DO NOTHING
+	//Do nothing
 }
 
 void MeshLoader::startUp()
 {
+	//Initialization of necessary systems goes here
 	FileSystem::get().startUp();
 }
 
 void MeshLoader::shutDown()
 {
+	//Termination of necessary systems goes here
 	FileSystem::get().shutDown();
 }
 

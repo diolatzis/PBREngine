@@ -1,7 +1,5 @@
 #include "TriangMesh.h"
 
-
-
 TriangMesh::TriangMesh()
 {
 }

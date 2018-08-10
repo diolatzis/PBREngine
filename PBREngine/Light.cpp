@@ -1,7 +1,5 @@
 #include "Light.h"
 
-
-
 Light::Light()
 {
 }
@@ -10,7 +8,6 @@ Light::Light(glm::vec3 pos, glm::vec3 targetPos, glm::vec4 ambient, glm::vec4 di
 diffuse_(diffuse), specular_(specular), specularPower_(specularPower)
 {
 }
-
 
 Light::~Light()
 {

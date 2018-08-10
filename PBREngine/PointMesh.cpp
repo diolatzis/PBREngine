@@ -1,12 +1,8 @@
 #include "PointMesh.h"
 
-
-
 PointMesh::PointMesh()
 {
-	modelMatrix = glm::mat4(1.0f);
 }
-
 
 PointMesh::~PointMesh()
 {
@@ -26,6 +22,7 @@ int PointMesh::getMeshType()
 
 GLuint* PointMesh::getTexture()
 {
+	//Point meshes don't use textures
 	return nullptr;
 }
 

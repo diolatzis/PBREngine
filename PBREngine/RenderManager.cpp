@@ -1,10 +1,11 @@
 #include "RenderManager.h"
 
+//Color targets during attribute pass
 static const GLenum attributeBuffers[] =
 {
 	GL_COLOR_ATTACHMENT0,
 	GL_COLOR_ATTACHMENT1
-};
+};
 
 RenderManager::RenderManager()
 {
@@ -30,6 +31,7 @@ void RenderManager::updateUniformBuffers(GLuint &program, Camera &camera, GLint 
 	//Build and update uniform matrices
 	glm::mat4 view, projection, invProj;
 
+	//Camera view and projection
 	view = glm::lookAt(camera.pos_, camera.getTarget(), camera.up_);
 	projection = glm::perspective(glm::radians(camera.fov_), (float)viewport[2] / (float)viewport[3], camera.nearZ_, camera.farZ_);
 
@@ -37,9 +39,11 @@ void RenderManager::updateUniformBuffers(GLuint &program, Camera &camera, GLint 
 
 	glm::mat4 lightView, lightProj;
 
+	//Light view and projection
 	lightView = glm::lookAt(light.pos_, light.targetPos_, camera.up_);
 	lightProj = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, camera.nearZ_, camera.farZ_);
 
+	//Get uniform variables location in shaders
 	GLint modelLoc = glGetUniformLocation(program, "model");
 	GLint viewLoc = glGetUniformLocation(program, "view");
 	GLint projLoc = glGetUniformLocation(program, "proj");
@@ -56,6 +60,7 @@ void RenderManager::updateUniformBuffers(GLuint &program, Camera &camera, GLint 
 	GLint specularLoc = glGetUniformLocation(program, "specular");
 	GLint specularPowerLoc = glGetUniformLocation(program, "specularPower");
 
+	//Pass the uniform variables values to the shaders
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model[0][0]);
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, &projection[0][0]);
@@ -79,6 +84,7 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 	glGenFramebuffers(1, &visibilityFBO_);
 	glBindFramebuffer(GL_FRAMEBUFFER, visibilityFBO_);
 
+	//Initialize depth map texture
 	glGenTextures(1, &depthMap_);
 	glBindTexture(GL_TEXTURE_2D, depthMap_);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, windowWidth, windowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
@@ -87,15 +93,18 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
+	//Connect depth map with the depth attachment of the framebuffer
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthMap_, 0);
 	glDrawBuffer(GL_NONE);
 
+	//Reset the frame buffer
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//Initialize shadow map frame buffer object
 	glGenFramebuffers(1, &shadowMapFBO_);
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFBO_);
 
+	//Initialize shadow map texture
 	glGenTextures(1, &shadowMap_);
 	glBindTexture(GL_TEXTURE_2D, shadowMap_);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, windowWidth, windowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
@@ -104,9 +113,11 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
+	//Connect shadow map with the depth attachment of the framebuffer
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, shadowMap_, 0);
 	glDrawBuffer(GL_NONE);
 
+	//Reset the frame buffer
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
@@ -114,6 +125,7 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 	glGenFramebuffers(1, &attributeFBO_);
 	glBindFramebuffer(GL_FRAMEBUFFER, attributeFBO_);
 
+	//Initialize color texture
 	glGenTextures(1, &colorTex_);
 	glBindTexture(GL_TEXTURE_2D, colorTex_);	
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, windowWidth, windowHeight, 0, GL_RGBA, GL_FLOAT, 0);
@@ -123,6 +135,7 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, colorTex_, 0);
 
+	//Initialize normal texture
 	glGenTextures(1, &normalTex_);
 	glBindTexture(GL_TEXTURE_2D, normalTex_);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, windowWidth, windowHeight, 0, GL_RGBA, GL_FLOAT, 0);
@@ -132,9 +145,10 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, normalTex_, 0);
 
-
+	//Reset the color attachments
 	glDrawBuffer(GL_NONE);
 
+	//Reset the frame buffer
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//Initialize 1D gauss texture
@@ -146,7 +160,7 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 	glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-
+	//Load the shaders
 	ShaderLoader::get().setShader(visibilityProgram_, "../shaders/visibility");
 	ShaderLoader::get().setShader(squareSplatProgram_, "../shaders/square_splatting");
 	ShaderLoader::get().setShader(circleSplatProgram_, "../shaders/circle_splatting");
@@ -163,16 +177,17 @@ void RenderManager::shutDown()
 void RenderManager::render(Camera camera, GLint viewport[4], const Light &light, const int renderType)
 {
 	//------------------ VISIBILITY PASS ------------------//
+	
+	//No blending during this pass
 	glDisable(GL_BLEND);
 
+	//Enable the depth test and depth write
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, visibilityFBO_);
 
 	glClear(GL_DEPTH_BUFFER_BIT);
-
-	GLint model_loc;
 	 
 	for (RenderableObject *obj : m_renderableObjs)
 	{
@@ -210,16 +225,18 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 
 	GLuint currentProgram;
 
+	//Enable alpha blending during this pass
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	
+	//Disable depth testing during this pass since we use the depth map
 	glDisable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
 	glDrawBuffers(2, attributeBuffers);
 
 	for (RenderableObject *obj : m_renderableObjs)
 	{
+		//Use the appropriate shader depending on the type of mesh and render method in the case of points
 		switch (obj->getMeshType())
 		{
 		case Mesh::MESH_TYPE_POINT:
@@ -236,6 +253,7 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 		glUseProgram(currentProgram);
 		updateUniformBuffers(currentProgram, camera, viewport, light, obj->modelMatrix);
 
+		//Pass the necessary textures
 		GLuint depthLoc = glGetUniformLocation(currentProgram, "depthMap");
 		GLuint gaussLoc = glGetUniformLocation(currentProgram, "gauss");
 		GLuint textureLoc = glGetUniformLocation(currentProgram, "texture");
@@ -250,6 +268,7 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_1D, gaussTex_);
 		
+		//Mesh texture necessary only in triangular meshes
 		if (obj->getTexture())
 		{
 			glActiveTexture(GL_TEXTURE2);
@@ -261,8 +280,10 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 
 	//------------------ SHADING PASS ------------------//
 
+	//Draw to the default frame buffer
 	glDrawBuffer(GL_NONE);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glClearColor(0.2f, 0.2f, 0.4f, 1.0f);
 
@@ -272,6 +293,7 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 
 		updateUniformBuffers(shadingProgram_, camera, viewport, light, obj->modelMatrix);
 
+		//Pass the necessary textures
 		GLuint colorLoc = glGetUniformLocation(shadingProgram_, "colorTex");
 		GLuint normalLoc = glGetUniformLocation(shadingProgram_, "normalTex");
 		GLuint depthLoc = glGetUniformLocation(shadingProgram_, "depthMap");
@@ -295,9 +317,6 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 		glBindTexture(GL_TEXTURE_2D, shadowMap_);
 
 		obj->render();
-
-		//obj->modelMatrix = glm::rotate(obj->modelMatrix, 0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
-
 	}
 
 	glBindTexture(GL_TEXTURE_2D, 0);

@@ -1,7 +1,5 @@
 #include "FileSystem.h"
 
-
-
 FileSystem::FileSystem()
 {
 	//Do nothing
@@ -15,13 +13,13 @@ FileSystem::~FileSystem()
 
 void FileSystem::startUp()
 {
-
+	//Initialization of necessary systems goes here
 }
 
 void FileSystem::shutDown()
 {
+	//Termination of necessary systems goes here
 }
-
 
 FileSystem & FileSystem::get()
 {
@@ -38,6 +36,7 @@ bool FileSystem::syncReadFile(const char * filePath, U8 * buffer, size_t bufferS
 {
 	FILE *handle = fopen(filePath, "rb");
 	
+	//If file is not null
 	if (handle)
 	{
 		size_t bytes = fread(buffer, 1, bufferSize, handle);
@@ -45,6 +44,7 @@ bool FileSystem::syncReadFile(const char * filePath, U8 * buffer, size_t bufferS
 		int error = ferror(handle);
 		fclose(handle);
 
+		//If reading is successful
 		if (error == 0)
 		{
 			bytesRead = bytes;
@@ -71,6 +71,7 @@ std::string FileSystem::syncStrReadFile(const char * filePath)
 	std::string content;
 	std::ifstream fileStream(filePath, std::ios::in);
 
+	//Error in reading file
 	if (!fileStream.is_open()) {
 		std::cout << "Could not read file " << filePath << ". File does not exist." << std::endl;
 		return "";
@@ -78,6 +79,7 @@ std::string FileSystem::syncStrReadFile(const char * filePath)
 
 	std::string line = "";
 
+	//Construct the string of contents
 	while (!fileStream.eof()) {
 		std::getline(fileStream, line);
 		content.append(line + "\n");

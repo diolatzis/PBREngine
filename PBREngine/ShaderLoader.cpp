@@ -4,19 +4,23 @@
 
 ShaderLoader::ShaderLoader()
 {
+	//Do nothing
 }
 
 
 ShaderLoader::~ShaderLoader()
 {
+	//Do nothing
 }
 
 void ShaderLoader::startUp()
 {
+	//Initialization of necessary systems goes here
 }
 
 void ShaderLoader::shutDown()
 {
+	//Termination of necessary systems goes here
 }
 
 ShaderLoader &ShaderLoader::get()
