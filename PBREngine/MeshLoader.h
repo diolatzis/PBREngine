@@ -24,23 +24,28 @@ class MeshLoader
 {
 
 public:
+
+	//Constructors/Destructors
 	MeshLoader();
 	~MeshLoader();
 
-
+	//Start up and shut down functions of the subsystem
 	void startUp();
 	void shutDown();
 
 	//Get the singleton instance
 	static MeshLoader& get();
 
-	//Load mesh from .obj
+	//Load mesh as points from mesh
 	bool loadMeshAsPoints(const char *meshPath, const char *texturePath, int textureWidth, int textureHeight, PointMesh &mesh);
 
+	//Build the data representation of the point mesh
 	void buildPointMesh(const std::vector<glm::vec3> &vertices, std::vector<glm::vec3> &normals, std::vector<Colour> &colours, std::vector<float> radii, PointMesh &mesh);
 
+	//Load mesh as triangular mesh
 	bool loadMeshAsTriang(const char *meshPath, const char *texturePath, int textureWidth, int textureHeight, TriangMesh &mesh);
 
+	//Build the data representation of the triangular mesh
 	void buildTriangMesh(const std::vector<glm::vec3> &vertices, std::vector<unsigned int> &indices, std::vector<glm::vec3> &normals, std::vector<glm::vec2> &uvs, std::vector<glm::vec4> &image, int textureWidth, int textureHeight, TriangMesh &mesh);
 
 };

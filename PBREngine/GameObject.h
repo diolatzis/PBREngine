@@ -10,25 +10,30 @@
 
 class GameObject : public RenderableObject
 {
+	//Point/Triangular mesh
 	Mesh *mesh_;
 
 public:
 
+	//Matrix that contains the transformations of the model relative to the world
 	glm::mat4 model_;
-	glm::vec3 pos_;
 
+	//Constructors/Destructors
 	GameObject();
 	GameObject(glm::vec3 pos);
 	~GameObject();
 
+	//Create a point mesh from an obj file and texture
 	void setPointMesh(const char *meshPath, const char *texturePath, int textureWidth, int textureHeight);
 
+	//Create a triangular mesh from an obj file and texture
 	void setTriangMesh(const char *meshPath, const char *texturePath, int textureWidth, int textureHeight);
 
+	//Implementations of RenderableObject
 	void render();
+	int getMeshType();	//Either triangular or point
 
-	int getMeshType();
-
+	//Get the mesh texture
 	GLuint* getTexture();
 };
 

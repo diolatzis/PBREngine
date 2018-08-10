@@ -31,7 +31,7 @@ void main()
 		vec4 normal = texelFetch(normalTex, ivec2(gl_FragCoord.xy), 0);
 		
 		
-		if(inPosLightSpace.z-0.005 > texelFetch(shadowMap, ivec2(inPosLightSpace.xy), 0).x)
+		if(inPosLightSpace.z-0.008 > texelFetch(shadowMap, ivec2(inPosLightSpace.xy), 0).x)
 		{
 			outColor = vec4(color.xyz*(inAmbient), color.w);
 		}
@@ -53,7 +53,7 @@ void main()
 			vec3 diffuse = max(dot(N, L), 0.0) *inDiffuse;
 			vec3 specular = pow(max(dot(R, V), 0.0), inSpecularPower) * inSpecular;
 			
-			outColor = vec4(color.xyz*(inAmbient*0.1f + diffuse + specular), color.w);
+			outColor = vec4(color.xyz*(inAmbient + diffuse + specular), color.w);
 		}
 	}
 	else discard;	

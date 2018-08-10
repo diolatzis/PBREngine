@@ -304,11 +304,6 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 	glUseProgram(GL_NONE);
 }
 
-void RenderManager::renderSubpass(Camera camera, GLint viewport[4])
-{
-
-}
-
 void RenderManager::addRenderableObj(RenderableObject * renderableObj)
 {
 	m_renderableObjs.push_back(renderableObj);

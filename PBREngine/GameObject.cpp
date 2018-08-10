@@ -7,7 +7,7 @@ GameObject::GameObject()
 	modelMatrix = glm::mat4(1.0f);
 }
 
-GameObject::GameObject(glm::vec3 pos) : pos_(pos)
+GameObject::GameObject(glm::vec3 pos)
 {
 	modelMatrix = glm::mat4(1.0f);
 	modelMatrix = glm::translate(modelMatrix, pos);

@@ -12,9 +12,11 @@
 class FileSystem
 {
 public:
+	//Constructors/Destructors
 	FileSystem();
 	~FileSystem();
 
+	//Start up and shut down functions of the subsystem
 	void startUp();
 	void shutDown();
 

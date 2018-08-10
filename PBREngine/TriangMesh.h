@@ -15,6 +15,7 @@
 class TriangMesh : public Mesh
 {
 public:
+	//Constructors/Destructors
 	TriangMesh();
 	~TriangMesh();
 
@@ -23,16 +24,19 @@ public:
 	//Number of VBOs
 	static const int VBOS_NUM = 4;
 
+	//Vertex array object and vertex buffer objects
 	GLuint vao_;
 	GLuint vbos_[4];
+
+	//Texture of the buffer
 	GLuint texture_;
+	
+	//Total number of points and triangles
 	int points_, triangs_;
-	glm::mat4 model_;
 
+	//Mesh implementations
 	void render();
-
 	int getMeshType();
-
 	GLuint* getTexture();
 };
 

@@ -6,21 +6,21 @@
 #include <string>
 #include "Camera.h"
 
-class RenderableObject		//Abstract class of renderable object
+//Abstract class of renderable object
+class RenderableObject
 {
 public:
-
+	
+	//Constructors/Destructors
 	RenderableObject();
-
 	~RenderableObject();
 
-	//Render the object
+	//Virtual functions of RenderableObject
 	virtual void render() = 0;
-
 	virtual int getMeshType() = 0;
-
 	virtual GLuint* getTexture() = 0;
 
+	//Matrix containing the transformations of the model relative to the world
 	glm::mat4 modelMatrix;
 };
 

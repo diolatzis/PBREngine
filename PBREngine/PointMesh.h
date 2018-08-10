@@ -15,25 +15,25 @@
 class PointMesh : public Mesh
 {
 public:
+	//Constructors/Destructors
 	PointMesh();
 	~PointMesh();	
-
-	float splatRadius_;
 
 	//Vertex Buffers
 	static const int VBID_POS = 0, VBID_NORMAL = 1, VBID_COLOUR = 2, VBID_RADIUS = 3;
 	//Number of VBOs
 	static const int VBOS_NUM = 4;	
 
+	//Vertex array object and vertex buffer objects
 	GLuint vao_;
 	GLuint vbos_[4];
+
+	//Total number of points
 	int points_;
-	glm::mat4 model_;
 
+	//Mesh implementations
 	void render();
-
 	int getMeshType();
-
 	GLuint* getTexture();
 
 };
