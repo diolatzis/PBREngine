@@ -16,6 +16,14 @@
 
 class RenderManager
 {
+private:
+
+	static RenderManager *instance;
+
+	//Constructors/Destructors
+	RenderManager();
+	~RenderManager();
+
 	//Array with objects to be rendered
 	std::vector<RenderableObject*> m_renderableObjs;
 
@@ -41,9 +49,6 @@ public:
 	//Triangular mesh rendering shaders
 	GLuint attributeTriangProgram_;
 
-	//Constructors/Destructors
-	RenderManager();
-	~RenderManager();
 
 	//Start up and shut down functions of the subsystem
 	void startUp(const int windowWidth, const int windowHeight);

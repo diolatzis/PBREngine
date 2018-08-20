@@ -1,5 +1,6 @@
 #include "MeshLoader.h"
 
+MeshLoader* MeshLoader::instance = NULL;
 
 MeshLoader::MeshLoader()
 {
@@ -26,7 +27,6 @@ void MeshLoader::shutDown()
 
 MeshLoader & MeshLoader::get()
 {
-	static MeshLoader* instance = NULL;
 	if (instance == NULL)
 	{
 		instance = new MeshLoader();

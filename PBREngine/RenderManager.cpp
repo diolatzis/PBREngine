@@ -1,5 +1,7 @@
 #include "RenderManager.h"
 
+RenderManager* RenderManager::instance = NULL;
+
 //Color targets during attribute pass
 static const GLenum attributeBuffers[] =
 {
@@ -17,7 +19,6 @@ RenderManager::~RenderManager()
 
 RenderManager & RenderManager::get()
 {
-	static RenderManager* instance = NULL;
 	if (instance == NULL)
 	{
 		instance = new RenderManager();

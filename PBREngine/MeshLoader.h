@@ -23,11 +23,16 @@
 class MeshLoader
 {
 
-public:
+private:
+
+	static MeshLoader *instance;
 
 	//Constructors/Destructors
 	MeshLoader();
 	~MeshLoader();
+
+public:
+
 
 	//Start up and shut down functions of the subsystem
 	void startUp();

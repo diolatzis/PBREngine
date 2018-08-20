@@ -11,11 +11,15 @@
 
 class ShaderLoader
 {
-public:
+private:
+
+	static ShaderLoader *instance;
 
 	//Constructors/Destructors
 	ShaderLoader();
 	~ShaderLoader();
+
+public:
 	
 	//Start up and shut down functions of the subsystem
 	void startUp();

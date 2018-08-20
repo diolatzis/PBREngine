@@ -1,5 +1,6 @@
 #include "ShaderLoader.h"
 
+ShaderLoader* ShaderLoader::instance = NULL;
 
 
 ShaderLoader::ShaderLoader()
@@ -25,7 +26,6 @@ void ShaderLoader::shutDown()
 
 ShaderLoader &ShaderLoader::get()
 {
-	static ShaderLoader *instance = NULL;
 	if (instance == NULL)
 	{
 		instance = new ShaderLoader();
