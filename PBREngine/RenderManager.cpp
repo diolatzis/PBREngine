@@ -173,6 +173,7 @@ void RenderManager::startUp(const int windowWidth, const int windowHeight)
 
 void RenderManager::shutDown()
 {
+	delete instance;
 }
 
 void RenderManager::render(Camera camera, GLint viewport[4], const Light &light, const int renderType)

@@ -23,6 +23,7 @@ void MeshLoader::shutDown()
 {
 	//Termination of necessary systems goes here
 	FileSystem::get().shutDown();
+	delete instance;
 }
 
 MeshLoader & MeshLoader::get()

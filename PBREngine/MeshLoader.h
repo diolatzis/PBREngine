@@ -25,6 +25,7 @@ class MeshLoader
 
 private:
 
+	//Singleton instance
 	static MeshLoader *instance;
 
 	//Constructors/Destructors

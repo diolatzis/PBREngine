@@ -11,10 +11,17 @@
 
 class FileSystem
 {
-public:
+private:
+
+	//Singleton instance
+	static FileSystem *instance;
+
 	//Constructors/Destructors
 	FileSystem();
 	~FileSystem();
+
+public:
+	
 
 	//Start up and shut down functions of the subsystem
 	void startUp();

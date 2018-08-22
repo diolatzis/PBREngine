@@ -18,6 +18,7 @@ class RenderManager
 {
 private:
 
+	//Singleton instance
 	static RenderManager *instance;
 
 	//Constructors/Destructors

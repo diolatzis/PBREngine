@@ -22,6 +22,7 @@ void ShaderLoader::startUp()
 void ShaderLoader::shutDown()
 {
 	//Termination of necessary systems goes here
+	delete instance;
 }
 
 ShaderLoader &ShaderLoader::get()

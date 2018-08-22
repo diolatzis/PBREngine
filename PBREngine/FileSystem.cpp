@@ -1,5 +1,7 @@
 #include "FileSystem.h"
 
+FileSystem* FileSystem::instance = NULL;
+
 FileSystem::FileSystem()
 {
 	//Do nothing
@@ -19,11 +21,11 @@ void FileSystem::startUp()
 void FileSystem::shutDown()
 {
 	//Termination of necessary systems goes here
+	delete instance;
 }
 
 FileSystem & FileSystem::get()
 {
-	static FileSystem* instance = NULL;
 	if (instance == NULL)
 	{
 		instance = new FileSystem();
