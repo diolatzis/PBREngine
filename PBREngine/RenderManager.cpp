@@ -223,7 +223,7 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 	glClearTexImage(colorTex_, 0, GL_RGBA, GL_FLOAT, 0);
 	glClearTexImage(normalTex_, 0, GL_RGBA, GL_FLOAT, 0);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	glClearColor(0.2f, 0.2f, 0.4f, 1.0f);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	GLuint currentProgram;
 
@@ -287,7 +287,7 @@ void RenderManager::render(Camera camera, GLint viewport[4], const Light &light,
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	glClearColor(0.2f, 0.2f, 0.4f, 1.0f);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	for (RenderableObject *obj : m_renderableObjs)
 	{

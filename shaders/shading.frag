@@ -30,8 +30,7 @@ void main()
 		vec4 color = texelFetch(colorTex, ivec2(gl_FragCoord.xy), 0);
 		vec4 normal = texelFetch(normalTex, ivec2(gl_FragCoord.xy), 0);
 		
-		
-		if(inPosLightSpace.z-0.008 > texelFetch(shadowMap, ivec2(inPosLightSpace.xy), 0).x)
+		if(inPosLightSpace.z-0.015 > texelFetch(shadowMap, ivec2(inPosLightSpace.xy), 0).x)
 		{
 			outColor = vec4(color.xyz*(inAmbient), color.w);
 		}

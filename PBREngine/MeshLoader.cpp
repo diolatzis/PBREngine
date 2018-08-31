@@ -446,7 +446,7 @@ bool MeshLoader::loadMeshAsTriang(const char * meshPath, const char * texturePat
 			u = abs(stof(line.substr(0, line.find(seperator))))*textureWidth;
 
 			line.erase(0, line.find(' ') + 1);
-			v = abs(stof(line.substr(0, line.find(seperator)))*textureHeight);
+			v = abs(textureHeight - (stof(line.substr(0, line.find(seperator)))*textureHeight));
 
 			faceUVs.push_back(glm::vec2(u, v));
 		}
@@ -616,8 +616,8 @@ void MeshLoader::buildTriangMesh(const std::vector<glm::vec3>& vertices, std::ve
 	glGenTextures(1, &mesh.texture_);
 	glBindTexture(GL_TEXTURE_2D, mesh.texture_);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, textureWidth, textureHeight, 0, GL_RGBA, GL_FLOAT, texture.data());	
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
