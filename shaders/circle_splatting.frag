@@ -38,7 +38,7 @@ void main()
 	gl_FragDepth = z;
 	
 	//If the current fragment is the closest one using the depth map
-	if(z-0.000001f <= texelFetch(depthMap, ivec2(gl_FragCoord.xy), 0).x )
+	if(z-0.0001f <= texelFetch(depthMap, ivec2(gl_FragCoord.xy), 0).x )
 	{
 		//If the point on the supporting plane is within the range of the splat
 		if(length(q-inPosEyeSpace) <= inRadius )
